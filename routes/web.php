@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,53 +30,18 @@ Route::get('/about', function () {
 });
 
 Route::get('/blog', function () {
-    $blog_posts = [
-        [
-            "title" => "Judul Posts Pertama",
-            "slug" => "judul-posts-pertama",
-            "author" => "Akbar",
-            "body" => "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci cum natus quod doloremque nam eum minima harum, assumenda explicabo a earum neque maiores vel saepe illum veritatis itaque temporibus enim dolore quibusdam nobis illo? Dolore eaque, unde culpa nesciunt incidunt rem. Praesentium sint est quaerat velit eaque natus odit dignissimos nisi quas, molestias aut dolorem excepturi laudantium nihil consequuntur ducimus impedit distinctio asperiores esse eius iste perspiciatis quod? Eligendi in itaque repellendus nisi quis amet ex commodi iste temporibus ab."
-        ],
-        [
-            "title" => "Judul Posts Kedua",
-            "slug" => "judul-posts-kedua",
-            "author" => "Sandika",
-            "body" => "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci cum natus quod doloremque nam eum minima harum, assumenda explicabo a earum neque maiores vel saepe illum veritatis itaque temporibus enim dolore quibusdam nobis illo? Dolore eaque, unde culpa nesciunt incidunt rem. Praesentium sint est quaerat velit eaque natus odit dignissimos nisi quas, molestias aut dolorem excepturi laudantium nihil consequuntur ducimus impedit distinctio asperiores esse eius iste perspiciatis quod? Eligendi in itaque repellendus nisi quis amet ex commodi iste temporibus ab."
-        ],
-    ];
     return view('posts', [
         "title" => "Posts",
-        "posts" => $blog_posts
+        "posts" => Post::all()
     ]);
 });
 
-//halaman sinlge post
+//halaman single post
 
 Route::get('posts/{slug}', function ($slug) {
-    $blog_posts = [
-        [
-            "title" => "Judul Posts Pertama",
-            "slug" => "judul-posts-pertama",
-            "author" => "Akbar",
-            "body" => "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci cum natus quod doloremque nam eum minima harum, assumenda explicabo a earum neque maiores vel saepe illum veritatis itaque temporibus enim dolore quibusdam nobis illo? Dolore eaque, unde culpa nesciunt incidunt rem. Praesentium sint est quaerat velit eaque natus odit dignissimos nisi quas, molestias aut dolorem excepturi laudantium nihil consequuntur ducimus impedit distinctio asperiores esse eius iste perspiciatis quod? Eligendi in itaque repellendus nisi quis amet ex commodi iste temporibus ab."
-        ],
-        [
-            "title" => "Judul Posts Kedua",
-            "slug" => "judul-posts-kedua",
-            "author" => "Sandika",
-            "body" => "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci cum natus quod doloremque nam eum minima harum, assumenda explicabo a earum neque maiores vel saepe illum veritatis itaque temporibus enim dolore quibusdam nobis illo? Dolore eaque, unde culpa nesciunt incidunt rem. Praesentium sint est quaerat velit eaque natus odit dignissimos nisi quas, molestias aut dolorem excepturi laudantium nihil consequuntur ducimus impedit distinctio asperiores esse eius iste perspiciatis quod? Eligendi in itaque repellendus nisi quis amet ex commodi iste temporibus ab."
-        ],
-    ];
-
-    $new_post = [];
-    foreach ($blog_posts as $post) {
-        if ($post["slug"] === $slug) {
-            $new_post = $post;
-        }
-    }
 
     return view('post', [
         "title" => "Ini Single Post",
-        "post" => $new_post
+        "post" => Post::find($slug)
     ]);
 });
