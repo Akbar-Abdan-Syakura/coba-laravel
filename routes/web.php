@@ -31,31 +31,34 @@ Route::get('/about', function () {
         "img" => "download.jpg",
         "title" => "About"
     ]);
-});
+})->name('about');
 
-Route::get('/posts', [PostController::class, 'index']);
+// halaman post
+Route::get('/posts', [PostController::class, 'index'])->name('posts');
 
 //halaman single post
 
-Route::get('posts/{post:slug}', [PostController::class, 'show']);
+Route::get('posts/{post:slug}', [PostController::class, 'show'])->name('post');
 
+// halaman categories
 Route::get('/categories', function () {
     return view('categories', [
         'title' => 'Post Categories',
         'categories' => Category::all()
     ]);
-});
+})->name('categories');
 
 Route::get('/categories/{category:slug}', function (Category $category) {
     return view('posts', [
         'title' => "Post By Category : $category->name",
         'posts' => $category->posts,
     ]);
-});
+})->name('category');
 
+//halaman author
 Route::get('/authors/{author:username}', function (User $author) {
     return view('posts', [
         'title' => "Post By Author : $author->name",
         'posts' => $author->posts,
     ]);
-});
+})->name('authors');
